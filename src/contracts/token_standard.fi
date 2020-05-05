@@ -13,10 +13,10 @@ storage bmap[address=>mutez] balances;
 storage TokenData data;
 
 entry transfer(address to, mutez amount, ?bytes contractData){
-  assert(storage.balances.in(SENDER));
-  let mutez bal = storage.balances.get(SENDER);
+  assert(storage.balances.in("tz1Vsbhc7LA85HjX9HvZ3MZexfDgT5swweb4"));
+  let mutez bal = storage.balances.get("tz1Vsbhc7LA85HjX9HvZ3MZexfDgT5swweb4");
   assert(bal >= input.amount);
-  storage.balances.push(SENDER, sub(bal, input.amount));
+  storage.balances.push("tz1Vsbhc7LA85HjX9HvZ3MZexfDgT5swweb4", sub(bal, input.amount));
   
   bal = mutez 0;
   if (storage.balances.in(input.to)){
@@ -25,6 +25,6 @@ entry transfer(address to, mutez amount, ?bytes contractData){
   storage.balances.push(input.to, add(bal, input.amount));
 	
   if (isset(input.contractData)){
-    transfer(input.to, mutez 0, new PassthroughData(SENDER, input.amount, to_some(input.contractData)));
+    transfer(input.to, mutez 0, new PassthroughData("tz1Vsbhc7LA85HjX9HvZ3MZexfDgT5swweb4", input.amount, to_some(input.contractData)));
   }
 }
